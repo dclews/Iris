@@ -9,11 +9,10 @@ class ProcessRunner : public QProcess
 private:
     Q_OBJECT
     QString nick;
-    QString command;
-    QStringList args;
+    QStringList rawCommand;
 
 public:
-    explicit ProcessRunner(QString nick, QString command, QStringList args, QObject *parent = 0);
+    explicit ProcessRunner(QString nick, QStringList command, QObject *parent = 0);
 
 signals:
     void printLine(QString nick, QString line);

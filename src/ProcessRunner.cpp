@@ -1,8 +1,8 @@
 #include "ProcessRunner.hpp"
 #include <QDebug>
 
-ProcessRunner::ProcessRunner(QString nick, QString command, QStringList args, QObject *parent) :
-    QProcess(parent), nick(nick), command(command), args(args)
+ProcessRunner::ProcessRunner(QString nick, QStringList rawCommand, QObject *parent) :
+    QProcess(parent), nick(nick), rawCommand(rawCommand)
 {
     connect(this, SIGNAL(finished(int)), this, SLOT(commandFinished(int)));
     connect(this, SIGNAL(readyRead()), this, SLOT(readOutput()));
@@ -11,16 +11,25 @@ ProcessRunner::ProcessRunner(QString nick, QString command, QStringList args, QO
 
 void ProcessRunner::commandFinished(int exitCode)
 {
-    QString finished = "Command \"" + command + "\" finished with exit code " + QString::number(exitCode);
+    QString finished = "Command \"" + rawCommand.at(0) + "\" finished with exit code " + QString::number(exitCode);
     qDebug() << finished;
 
+    while(this->canReadLine())
+    {
+        readOutput();
+    }
     emit(printLine(nick, finished));
     emit(commandDone(exitCode));
 }
 void ProcessRunner::run()
 {
     qDebug() << "[PR] run()";
-    this->start(command, args);
+    qDebug() << "[Bot] Starting process " << rawCommand;
+
+    QStringList args = rawCommand;
+    args.removeFirst();
+
+    this->start(rawCommand.at(0), args);
 }
 
 void ProcessRunner::readOutput()
@@ -31,7 +40,7 @@ void ProcessRunner::readOutput()
 
 void ProcessRunner::printError(QProcess::ProcessError perr)
 {
-    QString error = "[ERROR] Command: " + command + " Process ";
+    QString error = "[ERROR] Command: " + rawCommand.at(0) + " Process ";
     switch(perr)
     {
         case QProcess::FailedToStart: error += "failed to start."; break;

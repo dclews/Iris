@@ -19,9 +19,9 @@ unix {
 
 }
 win {
-    IRIS_ROOT = "C:\Program Files\Iris"
-    IRIS_SHARE = "$$IRIS_ROOT\share"
-    INCLUDEPATH += "$$IRIS_ROOT\include"
+    IRIS_ROOT = "C:/Program Files/Iris"
+    IRIS_SHARE = "$$IRIS_ROOT/share"
+    INCLUDEPATH += "$$IRIS_ROOT/include"
 }
 
 LIBS += -lIrcCore

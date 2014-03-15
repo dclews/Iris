@@ -29,12 +29,15 @@ HEADERS += src/Bot.hpp \
     src/iris.hpp \
     src/ListenerCommand.hpp
 
+win32 {
+    target.path = $$IRIS_ROOT
+    headers.path = $$IRIS_ROOT/include
+}
 unix {
     target.path = /usr/local/lib/
     headers.path = /usr/local/include/iris
-    headers.files += $$HEADERS
 #    mics.path = /usr/local/share/iris
 #    mics.files += $$PWD/iris_common.pri
-
-    INSTALLS += target headers misc
 }
+headers.files += $$HEADERS
+INSTALLS += target headers misc

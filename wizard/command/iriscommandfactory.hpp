@@ -6,7 +6,6 @@
 
 namespace iris
 {
-    class %CommandName%;
     class %CommandName%Factory : public QObject, public CommandPluginFactory
     {
         Q_OBJECT

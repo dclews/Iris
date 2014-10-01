@@ -19,7 +19,8 @@ TEMPLATE = lib
 
 SOURCES += src/Bot.cpp \
            src/ASyncCommand.cpp \
-           src/ListenerCommand.cpp
+           src/ListenerCommand.cpp \
+           src/AuthenticationManager.cpp
 
 HEADERS += src/Bot.hpp \
     src/CommandPlugin.hpp \
@@ -27,7 +28,8 @@ HEADERS += src/Bot.hpp \
     src/PluginInterfaces.hpp \
     src/CommandPluginFactory.hpp \
     src/iris.hpp \
-    src/ListenerCommand.hpp
+    src/ListenerCommand.hpp \
+    src/AuthenticationManager.hpp
 
 unix {
     target.path = /usr/local/lib/

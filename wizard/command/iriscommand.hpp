@@ -12,6 +12,7 @@ namespace iris
         Q_OBJECT
     public:
         explicit %CommandName%();
+        static QString mSyntax;
 
     signals:
         void printLine(QString nick, QString line);

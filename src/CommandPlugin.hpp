@@ -5,16 +5,12 @@
 #include <QList>
 #include "CommandPluginFactory.hpp"
 
-namespace iris
-{
-    class ASyncCommand;
-}
-
 class CommandPlugin
 {
 public:
-    virtual ~CommandPlugin() {}
-    virtual QList<iris::CommandPluginFactory*> commands() const = 0;
+	virtual ~CommandPlugin() {}
+	virtual QList<iris::CommandPluginFactory*> commands() const = 0;
+	virtual QString name()=0;
 };
 
 #define CommandPlugin_iid "xclueless.ircbot.CommandPlugin"

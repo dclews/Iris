@@ -7,18 +7,18 @@ class IrcPrivateMessage;
 
 namespace iris
 {
-    class ListenerCommand : public ASyncCommand
-    {
-    private:
-        Q_OBJECT
-    public:
-        ListenerCommand();
-        virtual ~ListenerCommand() {}
-    signals:
+	class ListenerCommand : public ASyncCommand
+	{
+	private:
+		Q_OBJECT
+	public:
+		ListenerCommand();
+		virtual ~ListenerCommand() {}
+	signals:
 
-    public slots:
-        virtual void messageRecieved(IrcPrivateMessage* msg)=0;
-    };
+	public slots:
+		virtual void messageRecieved(IrcPrivateMessage* msg)=0;
+	};
 }
 
 

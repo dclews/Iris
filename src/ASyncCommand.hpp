@@ -10,25 +10,25 @@ class IrcMessage;
 
 namespace iris
 {
-    class ASyncCommand : public QObject
-    {
-    private:
-        Q_OBJECT
-    protected:
-        QStringList parameters;
-        QString target;
-    public:
-        ASyncCommand();
-        virtual ~ASyncCommand();
-    signals:
-        void printLine(QString nick, QString line);
-        void commandDone(int exitCode);
-    public slots:
-        virtual void exec()=0;
-        virtual QString syntax()=0;
-        virtual void setCommand(IrcCommand* cmd);
-        virtual void setTarget(QString target);
-    };
+	class ASyncCommand : public QObject
+	{
+	private:
+		Q_OBJECT
+	protected:
+		QStringList mParameters;
+		QString mTarget;
+	public:
+		ASyncCommand();
+		virtual ~ASyncCommand();
+	signals:
+		void printLine(QString target, QString line);
+		void commandDone(int exitCode);
+	public slots:
+		virtual void exec()=0;
+		virtual QString syntax()=0;
+		virtual void setCommand(IrcCommand* cmd);
+		virtual void setTarget(QString target);
+	};
 }
 
 #endif // ASYNC_HPP

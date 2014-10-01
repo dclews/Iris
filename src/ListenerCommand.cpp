@@ -3,7 +3,7 @@
 
 namespace iris
 {
-    ListenerCommand::ListenerCommand()
-    {
-    }
+	ListenerCommand::ListenerCommand()
+	{
+	}
 }

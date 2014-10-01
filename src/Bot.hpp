@@ -6,43 +6,43 @@
 #include <QMap>
 #include <IrcConnection>
 #include <IrcCommandParser>
+#include "AuthenticationManager.hpp"
 
 #include "CommandPlugin.hpp"
 
 namespace iris
 {
-    class CommandPluginFactory;
-    class ListenerCommand;
+	class CommandPluginFactory;
+	class ListenerCommand;
 
-    class Bot : public IrcConnection
-    {
-    private:
-        Q_OBJECT
-        QList<QString> authenticatedUsers;
-        QList<QString> ignoredUsers;
-        QMap<QString, ListenerCommand*> listenerCommands;
-        QMap<QString, CommandPluginFactory*> pluginCommandFactories;
+	class Bot : public IrcConnection
+	{
+	private:
+		Q_OBJECT
+		QList<QString> ignoredUsers;
+		QMap<QString, ListenerCommand*> listenerCommands;
 
-        bool authenticate(QString nick, QString pass);
-        bool isAuthorised(QString nick);
-        bool print;
-        IrcCommandParser parser;
+		QSet<CommandPlugin*> mPlugins;
 
-    public:
-        explicit Bot(QObject *parent = 0);
-        void registerCommandPlugin(CommandPlugin* plugin);
-    signals:
+		QMap<QString, CommandPluginFactory*> pluginCommandFactories;
+		AuthenticationManager* mAuthorisationManager;
 
-    public slots:
-        void processPrivateMessage(IrcPrivateMessage* message);
-        void SendPrivateMessage(QString nick, QString message);
-        void parrot(IrcPrivateMessage* message);
-        void joinChannel(QString room);
-        QString toLeet(QString string);
-        void sendAuthFail(QString target, QString nick);
-        void sendAuthSuccess(QString target, QString nick);
-        void setListen(QString user, bool listen);
-        void deauth(QString user);
-    };
+		bool mPrint;
+		IrcCommandParser parser;
+
+	public:
+		explicit Bot(QObject *parent = 0);
+		void registerCommandPlugin(CommandPlugin* plugin);
+		bool authoriseCommand(QString user, QString command);
+		void performCommand(QString target, QString nick, IrcCommand* cmd);
+
+
+	public slots:
+		void dispatchMessage(QString target, QString message);
+		void processPrivateMessage(IrcPrivateMessage* message);
+		void parrot(IrcPrivateMessage* message);
+		void joinChannel(QString room);
+		void setListen(QString user, bool listen);
+	};
 }
 #endif // BOT_HPP

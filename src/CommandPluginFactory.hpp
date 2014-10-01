@@ -7,14 +7,21 @@ class QString;
 
 namespace iris
 {
-    class CommandPluginFactory
-    {
-    public:
-        virtual ~CommandPluginFactory() {}
-        virtual ASyncCommand* newCommand()=0;
-        virtual QString syntax()=0;
-        virtual bool isListener()=0;
-    };
+	enum command_type
+	{
+		OneShot,
+		AuthManager,
+		Listener
+	};
+
+	class CommandPluginFactory
+	{
+	public:
+		virtual ~CommandPluginFactory() {}
+		virtual ASyncCommand* newCommand()=0;
+		virtual QString syntax()=0;
+		virtual command_type commandType()=0;
+	};
 }
 
 #endif // PLUGINFACTORY_HPP

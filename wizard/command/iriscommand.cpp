@@ -2,6 +2,8 @@
 
 namespace iris
 {
+    QString %CommandName%::mSyntax = "%CommandName% <command> (<args...>)";
+
     %CommandName%::%CommandName%()
     {
     }

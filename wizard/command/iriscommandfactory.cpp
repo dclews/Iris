@@ -13,6 +13,6 @@ namespace iris
 
     QString %CommandName%Factory::syntax()
     {
-        return QString("%CommandName:u% <command> (<args...>)");
+        return %CommandName%::mSyntax;
     }
 }

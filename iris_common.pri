@@ -8,14 +8,24 @@ CONFIG += communi c++11
 COMMUNI += core util
 DEFINES += IRC_SHARED
 
-INCLUDEPATH += /usr/local/include/IrcCore
-INCLUDEPATH += /usr/local/include/IrcModel
-INCLUDEPATH += /usr/local/include/IrcUtil
+unix {
+    LIBPATH += /usr/local/lib
+    INCLUDEPATH += /usr/local/include/IrcCore
+    INCLUDEPATH += /usr/local/include/IrcModel
+    INCLUDEPATH += /usr/local/include/IrcUtil
 
-LIBPATH += /usr/local/lib
+    IRIS_SHARE = /usr/local/share/iris
+    INCLUDEPATH += /usr/local/include/
+
+}
+win {
+    IRIS_ROOT = "C:/Program Files/Iris"
+    IRIS_SHARE = "$$IRIS_ROOT/share"
+    INCLUDEPATH += "$$IRIS_ROOT/include"
+}
+
 LIBS += -lIrcCore
 LIBS += -lIrcUtil
 
-INCLUDEPATH += /usr/local/include/
 
-IRIS_PLUGINS_DIR = /usr/local/share/iris/plugins/
+IRIS_PLUGINS_DIR = $$IRIS_SHARE/plugins/
